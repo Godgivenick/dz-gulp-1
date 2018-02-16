@@ -1,6 +1,6 @@
 var gulp = require('gulp');
 var browserSync = require('browser-sync').create();
-var less = require('gulp-less');
+var styles = require('gulp-less');
 
 
 gulp.task('server', ['styles'], function() {
@@ -8,13 +8,13 @@ gulp.task('server', ['styles'], function() {
     	server: { baseDir: './app/'}
     });
     gulp.watch('./app/**/*.html').on('change', browserSync.reload);
-    // gulp.watch('./app/less/**/*.less', ['less']);
-    gulp.watch('./app/sass/**/*.scss', ['styles']);
+    gulp.watch('./app/less/**/*.less', ['styles']);
+ 
 });
 
 gulp.task('styles', function() {
     return gulp.src('./app/less/**/*.less')
-    .pipe(less())
+    .pipe(styles())
     .pipe(gulp.dest('./app/css'))
     .pipe(browserSync.stream());
 });
